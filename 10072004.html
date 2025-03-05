@@ -83,58 +83,16 @@
         <h2>Неохотный</h2>
         <img src="img/Symbat.jpg" alt="Обложка альбома">
         <div class="audio-container">
-            <div class="play-btn" id="play-btn">▶</div>
+<!--             <div class="play-btn" id="play-btn">▶</div>
             <div class="progress-bar" id="progress-bar">
                 <div class="progress" id="progress"></div>
             </div>
-            <span class="time" id="time">00:00</span>
+            <span class="time" id="time">00:00</span> -->
         </div>
         <audio id="audio">
             <source src="mp3/Symbat.mp3.opus" type="audio/mpeg">
             Ваш браузер не поддерживает аудиоплеер.
         </audio>
     </div>
-
-    <script>
-        const audio = document.getElementById("audio");
-        const playBtn = document.getElementById("play-btn");
-        const progressBar = document.getElementById("progress-bar");
-        const progress = document.getElementById("progress");
-        const timeDisplay = document.getElementById("time");
-
-        function togglePlay() {
-            if (audio.paused) {
-                audio.play().catch(error => console.log("Ошибка воспроизведения:", error));
-                playBtn.textContent = "❚❚";
-            } else {
-                audio.pause();
-                playBtn.textContent = "▶";
-            }
-        }
-
-        function updateProgress() {
-            if (!audio.duration) return;
-            const percent = (audio.currentTime / audio.duration) * 100;
-            progress.style.width = percent + "%";
-            timeDisplay.textContent = formatTime(audio.currentTime);
-        }
-
-        function seek(event) {
-            const clickX = event.offsetX;
-            const width = progressBar.clientWidth;
-            if (!audio.duration) return;
-            audio.currentTime = (clickX / width) * audio.duration;
-        }
-
-        function formatTime(seconds) {
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60);
-            return ${min}:${sec < 10 ? "0" : ""}${sec};
-        }
-
-        playBtn.addEventListener("click", togglePlay);
-        audio.addEventListener("timeupdate", updateProgress);
-        progressBar.addEventListener("click", seek);
-    </script>
 </body>
 </html>

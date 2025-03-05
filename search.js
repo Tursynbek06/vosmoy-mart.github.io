@@ -5,7 +5,7 @@ function search() {
     // Список доступных файлов
     let files = [
         "index.html", "10072004ge.html", "19022005sq.html", "30072005hg.html", "04112005df.html",
-        "18082005wl.html", "11022005vn.html", " ", " ",
+        "18082005wl.html", "11022005vn.html", "21042005oj.html", " ",
         " ", " ", " ", " "
     ];
 

@@ -6,7 +6,7 @@ function search() {
     let files = [
         "index.html", "10072004ge.html", "19022005sq.html", "30072005hg.html", "04112005df.html",
         "18082005wl.html", "11022005vn.html", "21042005oj.html", "20032005rt.html",
-        " ", " ", " ", " "
+        "23102005tp.html", "15082005mk.html", "13022005fs.html", "28122004qp.html"
     ];
 
     // Проверяем, есть ли такой файл

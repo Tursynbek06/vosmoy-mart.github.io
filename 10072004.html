@@ -1,15 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звезды - Неохотный</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            background-image: url('img/SymbatF.jpg'); /* Укажите путь к изображению */
+            background-size: cover; /* Растягивание на весь экран */
+            background-position: center; /* Центрирование */
+            background-repeat: no-repeat; /* Запрет повторения */
+        }
+        .container {
+            margin-top: 50px;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .audio-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ff7043;
+            padding: 10px 15px;
+            border-radius: 10px;
+            width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+            color: white;
+            font-weight: bold;
+            position: relative;
+        }
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 20px;
+            color: #ff7043;
+        }
+        .progress-bar {
+            height: 5px;
+            width: 200px;
+            background: white;
+            border-radius: 5px;
+            margin: 0 10px;
+            position: relative;
+            cursor: pointer;
+        }
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: #fff176;
+            border-radius: 5px;
+            position: absolute;
+        }
+        .time {
+            font-size: 14px;
+            color: white;
+            min-width: 50px;
+        }
+    </style>
 </head>
 <body>
-	<audio controls>
-    <source src="mp3/Symbat.mp3.opus" type="audio/mpeg">
-    Ваш браузер не поддерживает аудиоэлемент.
-</audio>
+    <div class="container">
+        <h1>Звезды</h1>
+        <h2>Неохотный</h2>
+        <img src="img/Symbat.jpg" alt="Обложка альбома">
+        <div class="audio-container">
+            <div class="play-btn" id="play-btn">▶</div>
+            <div class="progress-bar" id="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <span class="time" id="time">00:00</span>
+        </div>
+        <audio id="audio">
+            <source src="mp3/Symbat.mp3.opus" type="audio/mpeg">
+            Ваш браузер не поддерживает аудиоплеер.
+        </audio>
+    </div>
 
+    <script>
+        const audio = document.getElementById("audio");
+        const playBtn = document.getElementById("play-btn");
+        const progressBar = document.getElementById("progress-bar");
+        const progress = document.getElementById("progress");
+        const timeDisplay = document.getElementById("time");
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play().catch(error => console.log("Ошибка воспроизведения:", error));
+                playBtn.textContent = "❚❚";
+            } else {
+                audio.pause();
+                playBtn.textContent = "▶";
+            }
+        }
+
+        function updateProgress() {
+            if (!audio.duration) return;
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = percent + "%";
+            timeDisplay.textContent = formatTime(audio.currentTime);
+        }
+
+        function seek(event) {
+            const clickX = event.offsetX;
+            const width = progressBar.clientWidth;
+            if (!audio.duration) return;
+            audio.currentTime = (clickX / width) * audio.duration;
+        }
+
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return ${min}:${sec < 10 ? "0" : ""}${sec};
+        }
+
+        playBtn.addEventListener("click", togglePlay);
+        audio.addEventListener("timeupdate", updateProgress);
+        progressBar.addEventListener("click", seek);
+    </script>
 </body>
 </html>
